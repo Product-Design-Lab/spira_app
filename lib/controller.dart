@@ -22,7 +22,10 @@ class BluetoothController extends StatelessWidget {
             if (state == BluetoothAdapterState.on) {
               return const DeviceScanner();
             }
-            return const StatusScreen(text: "No Device Connected");
+            return StatusScreen(
+              text: "No Device Connected",
+              onPressed: () => {},
+            );
           }),
     );
   }
@@ -52,7 +55,10 @@ class DeviceScanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     scanAndConnect(context);
-    return const StatusScreen(text: "Connecting...");
+    return StatusScreen(
+      text: "Connecting...",
+      onPressed: () => {},
+    );
   }
 }
 
@@ -105,21 +111,18 @@ class _DeviceScreenState extends State<DeviceScreen> {
     await Future.delayed(const Duration(seconds: 1));
   }
 
-  void reset() async {
+  void exampleAction() async {
     List<BluetoothService> services = await widget.device.discoverServices();
 
     services.forEach((service) async {
       var characteristics = service.characteristics;
       for (BluetoothCharacteristic c in characteristics) {
-        // Reset Characteristic
-        if (c.uuid.toString() == Device.resetCharacteristic.toLowerCase()) {
+        // Example Action Characteristic
+        if (c.uuid.toString() ==
+            Device.exampleActionCharacteristic.toLowerCase()) {
           c.write([0]);
         }
       }
-    });
-
-    setState(() {
-      exampleCharacteristic = 0;
     });
   }
 
@@ -129,6 +132,9 @@ class _DeviceScreenState extends State<DeviceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return StatusScreen(text: "exampleCharacteristic: $exampleCharacteristic");
+    return StatusScreen(
+      text: "exampleCharacteristic: $exampleCharacteristic",
+      onPressed: exampleAction,
+    );
   }
 }
