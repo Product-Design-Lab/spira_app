@@ -34,15 +34,17 @@ class _DeviceScreenState extends State<DeviceScreen> {
     List<BluetoothService> services = await widget.device.discoverServices();
 
     services.forEach((service) async {
-      var characteristics = service.characteristics;
-      for (BluetoothCharacteristic c in characteristics) {
-        List<int> value = await c.read();
+      if (service.uuid.toString() == Device.service.toLowerCase()) {
+        var characteristics = service.characteristics;
+        for (BluetoothCharacteristic c in characteristics) {
+          List<int> value = await c.read();
 
-        // exampleCharacteristic
-        if (c.uuid.toString() == Device.exampleCharacteristic.toLowerCase()) {
-          setState(() {
-            exampleCharacteristic = value[0];
-          });
+          // exampleCharacteristic
+          if (c.uuid.toString() == Device.exampleCharacteristic.toLowerCase()) {
+            setState(() {
+              exampleCharacteristic = value[0];
+            });
+          }
         }
       }
     });
@@ -52,12 +54,14 @@ class _DeviceScreenState extends State<DeviceScreen> {
     List<BluetoothService> services = await widget.device.discoverServices();
 
     services.forEach((service) async {
-      var characteristics = service.characteristics;
-      for (BluetoothCharacteristic c in characteristics) {
-        // Example Action Characteristic
-        if (c.uuid.toString() ==
-            Device.exampleActionCharacteristic.toLowerCase()) {
-          c.write([0]);
+      if (service.uuid.toString() == Device.service.toLowerCase()) {
+        var characteristics = service.characteristics;
+        for (BluetoothCharacteristic c in characteristics) {
+          // Example Action Characteristic
+          if (c.uuid.toString() ==
+              Device.exampleActionCharacteristic.toLowerCase()) {
+            c.write([0]);
+          }
         }
       }
     });
