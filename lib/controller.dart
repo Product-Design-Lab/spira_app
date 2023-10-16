@@ -74,7 +74,7 @@ class DeviceScreen extends StatefulWidget {
 }
 
 class _DeviceScreenState extends State<DeviceScreen> {
-  late Timer _everySecond;
+  late Timer _timer;
 
   int exampleCharacteristic = 0;
 
@@ -82,33 +82,27 @@ class _DeviceScreenState extends State<DeviceScreen> {
   void initState() {
     super.initState();
 
-    _everySecond = Timer.periodic(const Duration(seconds: 1), (Timer t) {
-      setState(() {
-        refresh();
-      });
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
+      update();
     });
   }
 
-  Future refresh() async {
-    widget.device.discoverServices().then((services) => {
-          services.forEach((service) async {
-            if (service.uuid.toString() == Device.service.toLowerCase()) {
-              for (BluetoothCharacteristic c in service.characteristics) {
-                List<int> value = await c.read();
+  void update() async {
+    List<BluetoothService> services = await widget.device.discoverServices();
 
-                // exampleCharacteristic
-                if (c.uuid.toString() ==
-                    Device.exampleCharacteristic.toLowerCase()) {
-                  setState(() {
-                    exampleCharacteristic = value[0];
-                  });
-                }
-              }
-            }
-          })
-        });
+    services.forEach((service) async {
+      var characteristics = service.characteristics;
+      for (BluetoothCharacteristic c in characteristics) {
+        List<int> value = await c.read();
 
-    await Future.delayed(const Duration(seconds: 1));
+        // exampleCharacteristic
+        if (c.uuid.toString() == Device.exampleCharacteristic.toLowerCase()) {
+          setState(() {
+            exampleCharacteristic = value[0];
+          });
+        }
+      }
+    });
   }
 
   void exampleAction() async {
