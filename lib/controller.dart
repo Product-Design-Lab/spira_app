@@ -86,7 +86,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
   Future refresh() async {
     widget.device.discoverServices().then((services) => {
           services.forEach((service) async {
-            if (service.uuid.toString() == "".toLowerCase()) {
+            if (service.uuid.toString() == Device.service.toLowerCase()) {
               for (BluetoothCharacteristic c in service.characteristics) {
                 List<int> value = await c.read();
 
