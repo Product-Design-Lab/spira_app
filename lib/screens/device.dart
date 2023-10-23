@@ -19,7 +19,7 @@ class DeviceScreen extends StatefulWidget {
 class _DeviceScreenState extends State<DeviceScreen> {
   late Timer _timer;
 
-  int exampleCharacteristic = 0;
+  int batteryLevel = 0;
 
   @override
   void initState() {
@@ -39,10 +39,11 @@ class _DeviceScreenState extends State<DeviceScreen> {
         for (BluetoothCharacteristic c in characteristics) {
           List<int> value = await c.read();
 
-          // exampleCharacteristic
-          if (c.uuid.toString() == Device.exampleCharacteristic.toLowerCase()) {
+          // batteryLevelCharacteristic
+          if (c.uuid.toString() ==
+              Device.batteryLevelCharacteristic.toLowerCase()) {
             setState(() {
-              exampleCharacteristic = value[0];
+              batteryLevel = value[0];
             });
           }
         }
@@ -57,9 +58,8 @@ class _DeviceScreenState extends State<DeviceScreen> {
       if (service.uuid.toString() == Device.service.toLowerCase()) {
         var characteristics = service.characteristics;
         for (BluetoothCharacteristic c in characteristics) {
-          // Example Action Characteristic
-          if (c.uuid.toString() ==
-              Device.exampleActionCharacteristic.toLowerCase()) {
+          // resetCharacteristic
+          if (c.uuid.toString() == Device.resetCharacteristic.toLowerCase()) {
             c.write([0]);
           }
         }
@@ -78,7 +78,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Center(child: Text("Example Characterstic: $exampleCharacteristic")),
+        Center(child: Text("Battery Level Characterstic: $batteryLevel")),
         MaterialButton(
             onPressed: exampleAction, child: const Text("Example Action"))
       ],
