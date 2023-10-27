@@ -35,7 +35,6 @@ class MainApp extends StatelessWidget {
       routes: {
         "/": (context) => const HomeScreen(),
         "/connect": (context) => const ConnectScreen(),
-        "/device": (context) => const DeviceScreen(),
       },
     );
   }
