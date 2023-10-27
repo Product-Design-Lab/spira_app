@@ -154,7 +154,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
         Center(child: Text("Tongue Force Characterstic: $tongueForce")),
         Center(child: Text("Battery Level Characterstic: $batteryLevel")),
         MaterialButton(onPressed: reset, child: const Text("Reset")),
-        MaterialButton(onPressed: changeMode, child: const Text("Change Mode"))
+        MaterialButton(onPressed: changeMode, child: const Text("Change Mode")),
       ],
     ));
   }

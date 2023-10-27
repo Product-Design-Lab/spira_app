@@ -14,3 +14,16 @@ class Device {
   static const String modeCharacteristic =
       "20B10024-E8F2-537E-4F6C-D104768A1214";
 }
+
+enum GameState { ready, inhale, exhale, complete }
+
+class GameSequence {
+  static List<GameState> training = [
+    GameState.ready,
+    GameState.inhale,
+    GameState.exhale,
+    GameState.inhale,
+    GameState.exhale,
+    GameState.complete
+  ];
+}

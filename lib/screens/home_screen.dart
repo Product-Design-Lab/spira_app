@@ -1,3 +1,4 @@
+import 'package:app_template/widgets/game.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app_template/widgets/base.dart';
@@ -21,13 +22,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Base(
+    return const Base(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-          const Center(child: Text("Home Screen")),
-          MaterialButton(onPressed: connect, child: const Text("Connect")),
+          // const Center(child: Text("Home Screen")),
+          // MaterialButton(onPressed: connect, child: const Text("Connect")),
+          GameView()
         ]));
   }
 }
