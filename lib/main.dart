@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'package:app_template/controller.dart';
+import 'package:app_template/screens/home_screen.dart';
+import 'package:app_template/screens/connect_screen.dart';
+import 'package:app_template/screens/device_screen.dart';
 
 void main() {
   if (Platform.isAndroid) {
@@ -27,6 +29,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: BluetoothController());
+    return MaterialApp(
+      title: "Spira",
+      initialRoute: "/",
+      routes: {
+        "/": (context) => const HomeScreen(),
+        "/connect": (context) => const ConnectScreen(),
+        "/device": (context) => const DeviceScreen(),
+      },
+    );
   }
 }
