@@ -4,7 +4,9 @@ import 'package:app_template/model.dart';
 import 'package:flutter/material.dart';
 
 class GameView extends StatefulWidget {
-  const GameView({Key? key}) : super(key: key);
+  final int breathLevel;
+
+  const GameView({Key? key, required this.breathLevel}) : super(key: key);
 
   @override
   State<GameView> createState() => _GameViewState();
@@ -29,7 +31,7 @@ class _GameViewState extends State<GameView> {
   }
 
   void updateGameSequence() {
-    if (sequence < GameSequence.training.length) {
+    if (sequence < GameSequence.training.length - 1) {
       setState(() {
         sequence++;
         state = GameSequence.training[sequence];
@@ -51,11 +53,17 @@ class _GameViewState extends State<GameView> {
         return _View(
             text: "Ready", buttonText: "Start", onPressed: updateGameSequence);
       case GameState.inhale:
+        if (widget.breathLevel < -80) {
+          updateGameSequence();
+        }
         return _View(
             text: "Inhale",
             buttonText: "Inhaled!",
             onPressed: updateGameSequence);
       case GameState.exhale:
+        if (widget.breathLevel > 80) {
+          updateGameSequence();
+        }
         return _View(
             text: "Exhale",
             buttonText: "Exhaled!",

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_template/widgets/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -147,14 +148,15 @@ class _DeviceScreenState extends State<DeviceScreen> {
   Widget build(BuildContext context) {
     return Base(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Center(child: Text("Breath Level Characterstic: $breath")),
-        Center(child: Text("Tongue Force Characterstic: $tongueForce")),
-        Center(child: Text("Battery Level Characterstic: $batteryLevel")),
-        MaterialButton(onPressed: reset, child: const Text("Reset")),
-        MaterialButton(onPressed: changeMode, child: const Text("Change Mode")),
+        // Center(child: Text("Tongue Force Characterstic: $tongueForce")),
+        // Center(child: Text("Battery Level Characterstic: $batteryLevel")),
+        // MaterialButton(onPressed: reset, child: const Text("Reset")),
+        // MaterialButton(onPressed: changeMode, child: const Text("Change Mode")),
+        GameView(breathLevel: breath),
       ],
     ));
   }

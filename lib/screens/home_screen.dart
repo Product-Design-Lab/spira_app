@@ -22,14 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Base(
+    return Base(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-          // const Center(child: Text("Home Screen")),
-          // MaterialButton(onPressed: connect, child: const Text("Connect")),
-          GameView()
+          const Center(child: Text("Home Screen")),
+          MaterialButton(onPressed: connect, child: const Text("Connect")),
         ]));
   }
 }
