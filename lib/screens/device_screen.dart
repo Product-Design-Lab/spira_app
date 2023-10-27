@@ -73,7 +73,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
           if (c.uuid.toString() == Device.breathCharacteristic.toLowerCase()) {
             _breathSubscription = c.onValueReceived.listen((value) async {
               setState(() {
-                breath = value[0];
+                breath = value[0].toSigned(8);
               });
             });
 
@@ -132,7 +132,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
         for (BluetoothCharacteristic c in characteristics) {
           // modeCharacteristic
           if (c.uuid.toString() == Device.modeCharacteristic.toLowerCase()) {
-            c.write([0]);
+            c.write([1]);
           }
         }
       }
