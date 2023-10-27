@@ -22,19 +22,18 @@ class _GameViewState extends State<GameView> {
   @override
   void initState() {
     super.initState();
-
-    _timer = Timer.periodic(const Duration(seconds: 5), (Timer t) {
-      if (state != GameState.complete) {
-        updateGameSequence();
-      }
-    });
   }
 
   void updateGameSequence() {
-    if (sequence < GameSequence.training.length - 1) {
+    if ((sequence < GameSequence.training.length - 1) ||
+        (state != GameState.complete)) {
       setState(() {
         sequence++;
         state = GameSequence.training[sequence];
+      });
+
+      Timer(const Duration(seconds: 5), () {
+        updateGameSequence();
       });
     }
   }
