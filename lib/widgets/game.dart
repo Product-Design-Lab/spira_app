@@ -18,6 +18,7 @@ class _GameViewState extends State<GameView> {
   GameState state = GameState.ready;
 
   int sequence = 0;
+  int score = 0;
 
   @override
   void initState() {
@@ -32,15 +33,22 @@ class _GameViewState extends State<GameView> {
         state = GameSequence.training[sequence];
       });
 
-      Timer(const Duration(seconds: 5), () {
+      _timer = Timer(const Duration(seconds: 10), () {
         updateGameSequence();
       });
     }
   }
 
+  void setScore() {
+    setState(() {
+      score++;
+    });
+  }
+
   void restartPressed() {
     setState(() {
       sequence = 0;
+      score = 0;
       state = GameSequence.training[0];
     });
   }
@@ -52,24 +60,27 @@ class _GameViewState extends State<GameView> {
         return _View(
             text: "Ready", buttonText: "Start", onPressed: updateGameSequence);
       case GameState.inhale:
-        if (widget.breathLevel < -80) {
+        if (widget.breathLevel < (Device.breathThreshold * -1)) {
+          _timer.cancel;
+          setScore();
           updateGameSequence();
         }
         return _View(
-            text: "Inhale",
-            buttonText: "Inhaled!",
-            onPressed: updateGameSequence);
+            text: "Inhale", buttonText: "Skip", onPressed: updateGameSequence);
       case GameState.exhale:
-        if (widget.breathLevel > 80) {
+        if (widget.breathLevel > Device.breathThreshold) {
+          _timer.cancel;
+          setScore();
           updateGameSequence();
         }
         return _View(
-            text: "Exhale",
-            buttonText: "Exhaled!",
-            onPressed: updateGameSequence);
+            text: "Exhale", buttonText: "Skip", onPressed: updateGameSequence);
       case GameState.complete:
         return _View(
-            text: "All Done", buttonText: "Restart", onPressed: restartPressed);
+            text:
+                "All Done! Score: $score of ${GameSequence.training.length - 2}",
+            buttonText: "Restart",
+            onPressed: restartPressed);
       default:
         return const Center(child: Text("Error"));
     }

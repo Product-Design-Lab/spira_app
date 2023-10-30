@@ -13,6 +13,8 @@ class Device {
       "20B10028-E8F2-537E-4F6C-D104768A1214";
   static const String modeCharacteristic =
       "20B10024-E8F2-537E-4F6C-D104768A1214";
+
+  static int breathThreshold = 80;
 }
 
 enum GameState { ready, inhale, exhale, complete }
