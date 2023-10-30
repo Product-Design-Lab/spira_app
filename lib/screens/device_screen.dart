@@ -32,6 +32,8 @@ class _DeviceScreenState extends State<DeviceScreen> {
   int breath = 0;
   int tongueForce = 0;
 
+  bool showDebugView = false;
+
   @override
   void initState() {
     super.initState();
@@ -144,6 +146,12 @@ class _DeviceScreenState extends State<DeviceScreen> {
     widget.device.disconnect();
   }
 
+  void toggleDebug() {
+    setState(() {
+      showDebugView = showDebugView ? false : true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Base(
@@ -151,12 +159,21 @@ class _DeviceScreenState extends State<DeviceScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Center(child: Text("Breath Level Characterstic: $breath")),
-        // Center(child: Text("Tongue Force Characterstic: $tongueForce")),
-        // Center(child: Text("Battery Level Characterstic: $batteryLevel")),
-        // MaterialButton(onPressed: reset, child: const Text("Reset")),
-        // MaterialButton(onPressed: changeMode, child: const Text("Change Mode")),
         GameView(breathLevel: breath),
+        if (showDebugView)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 64),
+            child: Column(children: [
+              Center(child: Text("Breath Level Characterstic: $breath")),
+              Center(child: Text("Tongue Force Characterstic: $tongueForce")),
+              Center(child: Text("Battery Level Characterstic: $batteryLevel")),
+              MaterialButton(onPressed: reset, child: const Text("Reset")),
+              MaterialButton(
+                  onPressed: changeMode, child: const Text("Change Mode")),
+            ]),
+          ),
+        MaterialButton(
+            onPressed: toggleDebug, child: const Text("Toggle Debug View")),
       ],
     ));
   }
