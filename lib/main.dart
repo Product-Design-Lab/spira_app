@@ -5,7 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'package:spira/screens/home_screen.dart';
 import 'package:spira/screens/connect_screen.dart';
-import 'package:spira/screens/device_screen.dart';
+import 'package:spira/widgets/playground.dart';
 
 void main() {
   if (Platform.isAndroid) {
@@ -31,10 +31,11 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Spira",
-      initialRoute: "/",
+      initialRoute: "/playground",
       routes: {
         "/": (context) => const HomeScreen(),
         "/connect": (context) => const ConnectScreen(),
+        "/playground": (context) => const PlaygroundScreen(),
       },
     );
   }
