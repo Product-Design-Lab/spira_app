@@ -71,6 +71,19 @@ class _StatusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Base(child: Text(text));
+    return Base(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(bottom: 16),
+          child:
+              Center(child: Text("Connecting...", style: TextStyles.subtitle)),
+        ),
+        Text("Ensure your device is on and nearby",
+            style: TextStyles.body.copyWith(color: AppColors.labelSecondary))
+      ],
+    ));
   }
 }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'package:spira/constants.dart';
+
 import 'package:spira/widgets/base.dart';
 
 class PlaygroundScreen extends StatefulWidget {
@@ -9,14 +12,22 @@ class PlaygroundScreen extends StatefulWidget {
 }
 
 class _PlaygroundScreenState extends State<PlaygroundScreen> {
+  void backPressed() {}
+
   @override
   Widget build(BuildContext context) {
-    return const Base(
+    return Base(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Center(child: Text("Hello World")),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 16),
+          child:
+              Center(child: Text("Connecting...", style: TextStyles.subtitle)),
+        ),
+        Text("Ensure your device is on and nearby",
+            style: TextStyles.body.copyWith(color: AppColors.labelSecondary))
       ],
     ));
   }

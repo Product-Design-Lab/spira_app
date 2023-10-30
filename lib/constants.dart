@@ -32,6 +32,7 @@ class TextStyles {
     fontSize: 32,
     fontWeight: FontWeight.w700,
     color: AppColors.labelPrimary,
+    letterSpacing: -1,
   );
 
   static const TextStyle subtitle = TextStyle(
@@ -72,4 +73,9 @@ class ButtonStyles {
       ),
       backgroundColor:
           const MaterialStatePropertyAll<Color>(AppColors.redBackground));
+}
+
+class Strings {
+  static String helpTitle = "Getting Started";
+  static String helpBody = "Help text can go here";
 }

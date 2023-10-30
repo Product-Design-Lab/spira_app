@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:spira/screens/help_screen.dart';
 
 import 'package:spira/screens/home_screen.dart';
 import 'package:spira/screens/connect_screen.dart';
@@ -31,10 +32,11 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Spira",
-      initialRoute: "/playground",
+      initialRoute: "/",
       routes: {
         "/": (context) => const HomeScreen(),
         "/connect": (context) => const ConnectScreen(),
+        "/help": (context) => const HelpScreen(),
         "/playground": (context) => const PlaygroundScreen(),
       },
     );
