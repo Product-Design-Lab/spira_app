@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:app_template/constants.dart';
+import 'package:spira/constants.dart';
 
 class Base extends StatelessWidget {
   final Widget child;

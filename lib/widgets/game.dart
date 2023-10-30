@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:app_template/model.dart';
+import 'package:spira/model.dart';
 import 'package:flutter/material.dart';
 
 class GameView extends StatefulWidget {

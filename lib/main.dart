@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'package:app_template/screens/home_screen.dart';
-import 'package:app_template/screens/connect_screen.dart';
-import 'package:app_template/screens/device_screen.dart';
+import 'package:spira/screens/home_screen.dart';
+import 'package:spira/screens/connect_screen.dart';
+import 'package:spira/screens/device_screen.dart';
 
 void main() {
   if (Platform.isAndroid) {
