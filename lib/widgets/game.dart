@@ -18,7 +18,7 @@ class _GameViewState extends State<GameView> {
   GameState state = GameState.ready;
 
   int sequence = 0;
-  int score = 0;
+  List<bool> scores = [];
 
   @override
   void initState() {
@@ -35,22 +35,33 @@ class _GameViewState extends State<GameView> {
 
       _timer = Timer(const Duration(seconds: 10), () {
         updateGameSequence();
+        setScore(false);
       });
     }
   }
 
-  void setScore() {
+  void setScore(bool didComplete) {
     setState(() {
-      score++;
+      scores = [...scores, didComplete];
     });
   }
 
   void restartPressed() {
     setState(() {
       sequence = 0;
-      score = 0;
+      scores = [];
       state = GameSequence.training[0];
     });
+  }
+
+  int getTotalScore() {
+    var total = 0;
+    for (bool e in scores) {
+      if (e == true) {
+        total++;
+      }
+    }
+    return total;
   }
 
   @override
@@ -61,24 +72,23 @@ class _GameViewState extends State<GameView> {
             text: "Ready", buttonText: "Start", onPressed: updateGameSequence);
       case GameState.inhale:
         if (widget.breathLevel < (Device.breathThreshold * -1)) {
-          _timer.cancel;
-          setScore();
+          _timer.cancel();
+          setScore(true);
           updateGameSequence();
         }
         return _View(
             text: "Inhale", buttonText: "Skip", onPressed: updateGameSequence);
       case GameState.exhale:
         if (widget.breathLevel > Device.breathThreshold) {
-          _timer.cancel;
-          setScore();
+          _timer.cancel();
+          setScore(true);
           updateGameSequence();
         }
         return _View(
             text: "Exhale", buttonText: "Skip", onPressed: updateGameSequence);
       case GameState.complete:
         return _View(
-            text:
-                "All Done! Score: $score of ${GameSequence.training.length - 2}",
+            text: "All Done! Score: ${getTotalScore()} of ${scores.length}",
             buttonText: "Restart",
             onPressed: restartPressed);
       default:
