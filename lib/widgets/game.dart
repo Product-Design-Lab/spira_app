@@ -69,7 +69,10 @@ class _GameViewState extends State<GameView> {
     switch (state) {
       case GameState.ready:
         return _View(
-            text: "Ready", buttonText: "Start", onPressed: updateGameSequence);
+            score: 0,
+            text: "Ready",
+            buttonText: "Start",
+            onPressed: updateGameSequence);
       case GameState.inhale:
         if (widget.breathLevel < (Device.breathThreshold * -1)) {
           _timer.cancel();
@@ -77,7 +80,10 @@ class _GameViewState extends State<GameView> {
           updateGameSequence();
         }
         return _View(
-            text: "Inhale", buttonText: "Skip", onPressed: updateGameSequence);
+            score: getTotalScore(),
+            text: "Inhale",
+            buttonText: "Skip",
+            onPressed: updateGameSequence);
       case GameState.exhale:
         if (widget.breathLevel > Device.breathThreshold) {
           _timer.cancel();
@@ -85,10 +91,14 @@ class _GameViewState extends State<GameView> {
           updateGameSequence();
         }
         return _View(
-            text: "Exhale", buttonText: "Skip", onPressed: updateGameSequence);
+            score: getTotalScore(),
+            text: "Exhale",
+            buttonText: "Skip",
+            onPressed: updateGameSequence);
       case GameState.complete:
         return _View(
-            text: "All Done! Score: ${getTotalScore()} of ${scores.length}",
+            score: getTotalScore(),
+            text: "All Done!",
             buttonText: "Restart",
             onPressed: restartPressed);
       default:
@@ -99,12 +109,14 @@ class _GameViewState extends State<GameView> {
 
 class _View extends StatelessWidget {
   final String text;
+  final int score;
   final String buttonText;
   final Function() onPressed;
 
   const _View(
       {super.key,
       required this.text,
+      required this.score,
       required this.buttonText,
       required this.onPressed});
 
@@ -112,6 +124,9 @@ class _View extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Center(
+            child:
+                Text("Score: $score of ${GameSequence.training.length - 2}")),
         Center(child: Text(text)),
         MaterialButton(onPressed: onPressed, child: Text(buttonText)),
       ],
