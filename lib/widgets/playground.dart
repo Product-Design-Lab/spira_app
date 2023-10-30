@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:spira/constants.dart';
 
+import 'package:spira/model.dart';
+
 import 'package:spira/widgets/base.dart';
+import 'package:spira/widgets/prompt.dart';
+import 'package:spira/widgets/score.dart';
 
 class PlaygroundScreen extends StatefulWidget {
   const PlaygroundScreen({Key? key}) : super(key: key);
@@ -18,16 +21,43 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
   Widget build(BuildContext context) {
     return Base(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(bottom: 16),
-          child:
-              Center(child: Text("Connecting...", style: TextStyles.subtitle)),
+        const ScoreView(scoreList: [
+          Score.failure,
+          Score.success,
+          Score.empty,
+          Score.empty,
+          Score.empty
+        ]),
+        const Center(child: PromptView(state: GameState.exhale)),
+        Text(
+          "Prompt Text",
+          style: TextStyles.subtitle.copyWith(color: AppColors.labelSecondary),
         ),
-        Text("Ensure your device is on and nearby",
-            style: TextStyles.body.copyWith(color: AppColors.labelSecondary))
+        Padding(
+          padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
+          child: Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                    onPressed: backPressed,
+                    style: ButtonStyles.buttonGreen,
+                    child: const Text("Start")),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                    onPressed: backPressed,
+                    style: ButtonStyles.buttonDefault,
+                    child: const Text("Restart")),
+              )
+            ],
+          ),
+        )
       ],
     ));
   }

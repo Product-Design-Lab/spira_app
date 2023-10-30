@@ -38,6 +38,7 @@ class TextStyles {
   static const TextStyle subtitle = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w500,
+    letterSpacing: -0.5,
   );
 
   static const TextStyle body = TextStyle(

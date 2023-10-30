@@ -19,6 +19,22 @@ class Device {
 
 enum GameState { ready, inhale, exhale, complete }
 
+enum Score {
+  empty,
+  failure,
+  success;
+
+  static int getTotal(List<Score> scoreList) {
+    var total = 0;
+    for (Score i in scoreList) {
+      if (i == Score.success) {
+        total++;
+      }
+    }
+    return total;
+  }
+}
+
 class GameSequence {
   static List<GameState> training = [
     GameState.ready,

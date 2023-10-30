@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:spira/constants.dart';
 
 import 'package:spira/model.dart';
 
@@ -157,12 +158,12 @@ class _DeviceScreenState extends State<DeviceScreen> {
     return Base(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        GameView(breathLevel: breath),
+        Expanded(child: GameView(breathLevel: breath)),
         if (showDebugView)
           Padding(
-            padding: const EdgeInsets.only(bottom: 64),
+            padding: const EdgeInsets.fromLTRB(0, 64, 0, 64),
             child: Column(children: [
               Center(child: Text("Breath Level Characterstic: $breath")),
               Center(child: Text("Tongue Force Characterstic: $tongueForce")),
@@ -172,8 +173,14 @@ class _DeviceScreenState extends State<DeviceScreen> {
                   onPressed: changeMode, child: const Text("Change Mode")),
             ]),
           ),
-        MaterialButton(
-            onPressed: toggleDebug, child: const Text("Toggle Debug View")),
+        Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: ElevatedButton(
+            onPressed: toggleDebug,
+            style: ButtonStyles.buttonDefault,
+            child: const Text("Toggle Debug View"),
+          ),
+        ),
       ],
     ));
   }

@@ -1,7 +1,12 @@
 import 'dart:async';
 
-import 'package:spira/model.dart';
 import 'package:flutter/material.dart';
+
+import 'package:spira/model.dart';
+import 'package:spira/constants.dart';
+
+import 'package:spira/widgets/prompt.dart';
+import 'package:spira/widgets/score.dart';
 
 class GameView extends StatefulWidget {
   final int breathLevel;
@@ -18,11 +23,18 @@ class _GameViewState extends State<GameView> {
   GameState state = GameState.ready;
 
   int sequence = 0;
-  List<bool> scores = [];
+  List<Score> scoreList = [];
 
   @override
   void initState() {
     super.initState();
+    resetScore();
+  }
+
+  void resetScore() {
+    setState(() {
+      scoreList = GameSequence.training.map((e) => Score.empty).toList();
+    });
   }
 
   void updateGameSequence() {
@@ -42,93 +54,125 @@ class _GameViewState extends State<GameView> {
 
   void setScore(bool didComplete) {
     setState(() {
-      scores = [...scores, didComplete];
+      scoreList[sequence] = didComplete ? Score.success : Score.failure;
     });
   }
 
   void restartPressed() {
     setState(() {
       sequence = 0;
-      scores = [];
       state = GameSequence.training[0];
     });
+    resetScore();
   }
 
-  int getTotalScore() {
-    var total = 0;
-    for (bool e in scores) {
-      if (e == true) {
-        total++;
-      }
-    }
-    return total;
+  void exit() {
+    Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
   }
 
-  @override
-  Widget build(BuildContext context) {
+  String promptText() {
     switch (state) {
       case GameState.ready:
-        return _View(
-            score: 0,
-            text: "Ready",
-            buttonText: "Start",
-            onPressed: updateGameSequence);
+        return "Get Ready";
       case GameState.inhale:
-        if (widget.breathLevel < (Device.breathThreshold * -1)) {
-          _timer.cancel();
-          setScore(true);
-          updateGameSequence();
-        }
-        return _View(
-            score: getTotalScore(),
-            text: "Inhale",
-            buttonText: "Skip",
-            onPressed: updateGameSequence);
+        return "Breath In";
       case GameState.exhale:
-        if (widget.breathLevel > Device.breathThreshold) {
-          _timer.cancel();
-          setScore(true);
-          updateGameSequence();
-        }
-        return _View(
-            score: getTotalScore(),
-            text: "Exhale",
-            buttonText: "Skip",
-            onPressed: updateGameSequence);
+        return "Breath Out Slowly";
       case GameState.complete:
-        return _View(
-            score: getTotalScore(),
-            text: "All Done!",
-            buttonText: "Restart",
-            onPressed: restartPressed);
+        return "All Done!";
       default:
-        return const Center(child: Text("Error"));
+        return "";
     }
   }
-}
 
-class _View extends StatelessWidget {
-  final String text;
-  final int score;
-  final String buttonText;
-  final Function() onPressed;
-
-  const _View(
-      {super.key,
-      required this.text,
-      required this.score,
-      required this.buttonText,
-      required this.onPressed});
+  Widget controls() {
+    switch (state) {
+      case GameState.ready:
+        return Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                  onPressed: updateGameSequence,
+                  style: ButtonStyles.buttonGreen,
+                  child: const Text("Start")),
+            ),
+          ],
+        );
+      case GameState.inhale:
+        return Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                  onPressed: restartPressed,
+                  style: ButtonStyles.buttonRed,
+                  child: const Text("Stop Training")),
+            )
+          ],
+        );
+      case GameState.exhale:
+        return Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                  onPressed: restartPressed,
+                  style: ButtonStyles.buttonRed,
+                  child: const Text("Stop Training")),
+            )
+          ],
+        );
+      case GameState.complete:
+        return Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                  onPressed: restartPressed,
+                  style: ButtonStyles.buttonGreen,
+                  child: const Text("Done")),
+            ),
+            const SizedBox(
+              width: 16,
+            ),
+            Expanded(
+              child: ElevatedButton(
+                  onPressed: restartPressed,
+                  style: ButtonStyles.buttonDefault,
+                  child: const Text("Restart")),
+            )
+          ],
+        );
+      default:
+        return Container();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    if ((state == GameState.inhale) &&
+        widget.breathLevel < (Device.breathThreshold * -1)) {
+      _timer.cancel();
+      setScore(true);
+      updateGameSequence();
+    }
+
+    if ((state == GameState.exhale) &&
+        widget.breathLevel > Device.breathThreshold) {
+      _timer.cancel();
+      setScore(true);
+      updateGameSequence();
+    }
+
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        ScoreView(scoreList: scoreList),
         Center(
-            child:
-                Text("Score: $score of ${GameSequence.training.length - 2}")),
-        Center(child: Text(text)),
-        MaterialButton(onPressed: onPressed, child: Text(buttonText)),
+          child: PromptView(state: state),
+        ),
+        Text(promptText(),
+            style:
+                TextStyles.subtitle.copyWith(color: AppColors.labelSecondary)),
+        controls(),
       ],
     );
   }
