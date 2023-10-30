@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:spira/widgets/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:spira/model.dart';
 
 import 'package:spira/widgets/base.dart';
+import 'package:spira/widgets/game.dart';
 
 class DeviceScreen extends StatefulWidget {
   final BluetoothDevice device;
