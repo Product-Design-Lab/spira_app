@@ -45,7 +45,7 @@ class _GameViewState extends State<GameView> {
         state = GameSequence.training[sequence];
       });
 
-      _timer = Timer(const Duration(seconds: 10), () {
+      _timer = Timer(const Duration(seconds: GameSequence.maxSeconds), () {
         updateGameSequence();
         setScore(false);
       });
@@ -159,6 +159,10 @@ class _GameViewState extends State<GameView> {
       _timer.cancel();
       setScore(true);
       updateGameSequence();
+    }
+
+    if (state == GameState.complete) {
+      _timer.cancel();
     }
 
     return Column(

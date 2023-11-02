@@ -36,7 +36,7 @@ enum Score {
 }
 
 class GameSequence {
-  static List<GameState> training = [
+  static const List<GameState> training = [
     GameState.ready,
     GameState.inhale,
     GameState.exhale,
@@ -44,4 +44,6 @@ class GameSequence {
     GameState.exhale,
     GameState.complete
   ];
+
+  static const int maxSeconds = 5;
 }
