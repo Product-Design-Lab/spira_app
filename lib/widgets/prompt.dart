@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_animations/simple_animations.dart';
 
 import 'package:spira/model.dart';
 import 'package:spira/constants.dart';
@@ -9,9 +10,8 @@ class PromptView extends StatelessWidget {
   const PromptView({super.key, required this.state});
 
   Widget graphic(String label, Color foregroundColor, Color backgroundColor,
-      Color shadowColor) {
+      Color shadowColor, double spread) {
     const double size = 240;
-    const double spread = 60;
 
     return SizedBox(
       width: 240,
@@ -38,19 +38,39 @@ class PromptView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double spread = 60;
+
     switch (state) {
       case GameState.ready:
         return graphic("Ready?", AppColors.labelPrimary, AppColors.greyAccent,
-            Colors.transparent);
+            Colors.transparent, 0);
       case GameState.inhale:
-        return graphic("Inhale", AppColors.orangeForeground,
-            AppColors.orangeAccent, AppColors.orangeBackground);
+        return LoopAnimationBuilder<double>(
+          duration: Duration(seconds: Device.breathDuration),
+          tween: Tween(begin: spread, end: 0),
+          curve: Curves.easeIn,
+          builder: (context, value, child) => graphic(
+              "Inhale",
+              AppColors.orangeForeground,
+              AppColors.orangeAccent,
+              AppColors.orangeBackground,
+              value),
+        );
       case GameState.exhale:
-        return graphic("Exhale", AppColors.yellowForeground,
-            AppColors.yellowAccent, AppColors.yellowBackground);
+        return LoopAnimationBuilder<double>(
+          duration: Duration(seconds: Device.breathDuration),
+          tween: Tween(begin: 0, end: spread),
+          curve: Curves.easeOut,
+          builder: (context, value, child) => graphic(
+              "Exhale",
+              AppColors.yellowForeground,
+              AppColors.yellowAccent,
+              AppColors.yellowBackground,
+              value),
+        );
       case GameState.complete:
         return graphic("All Done", AppColors.greenForeground,
-            AppColors.greenAccent, Colors.transparent);
+            AppColors.greenAccent, Colors.transparent, 0);
       default:
         return const Center(child: Text("Error"));
     }

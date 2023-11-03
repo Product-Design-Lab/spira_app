@@ -15,7 +15,15 @@ class PlaygroundScreen extends StatefulWidget {
 }
 
 class _PlaygroundScreenState extends State<PlaygroundScreen> {
+  bool toggled = false;
+
   void backPressed() {}
+
+  void toggle() {
+    setState(() {
+      toggled = !toggled;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +39,9 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
           Score.empty,
           Score.empty
         ]),
-        const Center(child: PromptView(state: GameState.complete)),
+        Center(
+            child: PromptView(
+                state: toggled ? GameState.inhale : GameState.exhale)),
         Text(
           "Prompt Text",
           style: TextStyles.subtitle.copyWith(color: AppColors.labelSecondary),
@@ -42,7 +52,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
             children: [
               Expanded(
                 child: ElevatedButton(
-                    onPressed: backPressed,
+                    onPressed: toggle,
                     style: ButtonStyles.buttonGreen,
                     child: const Text("Start")),
               ),
