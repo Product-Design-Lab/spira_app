@@ -31,7 +31,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
           Score.empty,
           Score.empty
         ]),
-        const Center(child: PromptView(state: GameState.exhale)),
+        const Center(child: PromptView(state: GameState.complete)),
         Text(
           "Prompt Text",
           style: TextStyles.subtitle.copyWith(color: AppColors.labelSecondary),

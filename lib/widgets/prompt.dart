@@ -8,73 +8,49 @@ class PromptView extends StatelessWidget {
 
   const PromptView({super.key, required this.state});
 
+  Widget graphic(String label, Color foregroundColor, Color backgroundColor,
+      Color shadowColor) {
+    const double size = 240;
+    const double spread = 60;
+
+    return SizedBox(
+      width: 240,
+      height: 240,
+      child: Container(
+        decoration: BoxDecoration(
+            color: backgroundColor,
+            boxShadow: [
+              BoxShadow(
+                  color: shadowColor,
+                  offset: Offset.zero,
+                  spreadRadius: spread,
+                  blurStyle: BlurStyle.normal)
+            ],
+            borderRadius: const BorderRadius.all(Radius.circular(size))),
+        child: Center(
+            child: Text(
+          label,
+          style: TextStyles.subtitle.copyWith(color: foregroundColor),
+        )),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     switch (state) {
       case GameState.ready:
-        return SizedBox(
-          width: 240,
-          height: 240,
-          child: Container(
-            decoration: const BoxDecoration(
-                color: AppColors.greyAccent,
-                borderRadius: BorderRadius.all(Radius.circular(120))),
-            child: Center(
-                child: Text(
-              "Ready?",
-              style:
-                  TextStyles.subtitle.copyWith(color: AppColors.greyForeground),
-            )),
-          ),
-        );
+        return graphic("Ready?", AppColors.labelPrimary, AppColors.greyAccent,
+            Colors.transparent);
       case GameState.inhale:
-        return SizedBox(
-          width: 240,
-          height: 240,
-          child: Container(
-            decoration: const BoxDecoration(
-                color: AppColors.orangeAccent,
-                borderRadius: BorderRadius.all(Radius.circular(120))),
-            child: Center(
-                child: Text(
-              "Inhale",
-              style: TextStyles.subtitle
-                  .copyWith(color: AppColors.orangeForeground),
-            )),
-          ),
-        );
+        return graphic("Inhale", AppColors.orangeForeground,
+            AppColors.orangeAccent, AppColors.orangeBackground);
       case GameState.exhale:
-        return SizedBox(
-          width: 240,
-          height: 240,
-          child: Container(
-            decoration: const BoxDecoration(
-                color: AppColors.yellowAccent,
-                borderRadius: BorderRadius.all(Radius.circular(120))),
-            child: Center(
-                child: Text(
-              "Exhale",
-              style: TextStyles.subtitle
-                  .copyWith(color: AppColors.yellowForeground),
-            )),
-          ),
-        );
+        return graphic("Exhale", AppColors.yellowForeground,
+            AppColors.yellowAccent, AppColors.yellowBackground);
       case GameState.complete:
-        return SizedBox(
-          width: 240,
-          height: 240,
-          child: Container(
-            decoration: const BoxDecoration(
-                color: AppColors.greenAccent,
-                borderRadius: BorderRadius.all(Radius.circular(120))),
-            child: Center(
-                child: Text(
-              "All Done",
-              style: TextStyles.subtitle
-                  .copyWith(color: AppColors.greenForeground),
-            )),
-          ),
-        );
+        return graphic("All Done", AppColors.greenForeground,
+            AppColors.greenAccent, Colors.transparent);
       default:
         return const Center(child: Text("Error"));
     }
