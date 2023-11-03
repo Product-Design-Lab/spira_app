@@ -31,6 +31,12 @@ class _GameViewState extends State<GameView> {
     resetScore();
   }
 
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   void resetScore() {
     setState(() {
       scoreList = GameSequence.training.map((e) => Score.empty).toList();
