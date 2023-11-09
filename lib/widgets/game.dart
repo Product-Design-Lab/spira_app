@@ -73,7 +73,7 @@ class _GameViewState extends State<GameView> {
   }
 
   void exit() {
-    Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
+    Navigator.pop(context);
   }
 
   String promptText() {
@@ -131,7 +131,7 @@ class _GameViewState extends State<GameView> {
           children: [
             Expanded(
               child: ElevatedButton(
-                  onPressed: restartPressed,
+                  onPressed: exit,
                   style: ButtonStyles.buttonGreen,
                   child: const Text("Done")),
             ),

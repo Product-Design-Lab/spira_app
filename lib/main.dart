@@ -32,9 +32,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Spira",
-      initialRoute: "/",
+      initialRoute: "/connect",
       routes: {
-        "/": (context) => const HomeScreen(),
         "/connect": (context) => const ConnectScreen(),
         "/help": (context) => const HelpScreen(),
         "/playground": (context) => const PlaygroundScreen(),

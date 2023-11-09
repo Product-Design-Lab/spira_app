@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:spira/constants.dart';
 
 import 'package:spira/widgets/base.dart';
 import 'package:spira/widgets/list_item.dart';
 
+import 'package:spira/screens/device_screen.dart';
+
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final BluetoothDevice device;
+  const HomeScreen({Key? key, required this.device}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -23,7 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void connect() {
-    Navigator.pushNamed(context, "/connect");
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => DeviceScreen(device: widget.device)));
   }
 
   @override

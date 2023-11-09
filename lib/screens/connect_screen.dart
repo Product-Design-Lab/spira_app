@@ -4,9 +4,9 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:spira/model.dart';
 import 'package:spira/constants.dart';
 
-import 'package:spira/screens/device_screen.dart';
-
 import 'package:spira/widgets/base.dart';
+
+import 'package:spira/screens/home_screen.dart';
 
 class ConnectScreen extends StatefulWidget {
   const ConnectScreen({Key? key}) : super(key: key);
@@ -51,7 +51,7 @@ class _ScannerScreen extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => DeviceScreen(device: result.device)));
+                  builder: (context) => HomeScreen(device: result.device)));
         }
       }
     });
