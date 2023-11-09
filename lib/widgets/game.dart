@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:spira/model.dart';
 import 'package:spira/constants.dart';
@@ -76,6 +77,13 @@ class _GameViewState extends State<GameView> {
     Navigator.pop(context);
   }
 
+  void openSurvey() async {
+    Uri url = Uri.parse(Device.surveyURL);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    }
+  }
+
   String promptText() {
     switch (state) {
       case GameState.ready:
@@ -127,23 +135,37 @@ class _GameViewState extends State<GameView> {
           ],
         );
       case GameState.complete:
-        return Row(
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
-              child: ElevatedButton(
-                  onPressed: exit,
-                  style: ButtonStyles.buttonGreen,
-                  child: const Text("Done")),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                      onPressed: exit,
+                      style: ButtonStyles.buttonGreen,
+                      child: const Text("Done")),
+                ),
+                const SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                      onPressed: restartPressed,
+                      style: ButtonStyles.buttonDefault,
+                      child: const Text("Restart")),
+                )
+              ],
             ),
-            const SizedBox(
-              width: 16,
-            ),
-            Expanded(
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
               child: ElevatedButton(
-                  onPressed: restartPressed,
-                  style: ButtonStyles.buttonDefault,
-                  child: const Text("Restart")),
-            )
+                onPressed: openSurvey,
+                style: ButtonStyles.buttonDefault,
+                child: const Text("Rate My Lesson"),
+              ),
+            ),
           ],
         );
       default:

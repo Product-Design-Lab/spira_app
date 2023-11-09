@@ -16,6 +16,8 @@ class Device {
 
   static int breathThreshold = 80;
   static int breathDuration = 5;
+
+  static const String surveyURL = "https://forms.office.com/r/jhXepe74BQ";
 }
 
 enum GameState { ready, inhale, exhale, complete }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:spira/constants.dart';
@@ -173,14 +174,15 @@ class _DeviceScreenState extends State<DeviceScreen> {
                   onPressed: changeMode, child: const Text("Change Mode")),
             ]),
           ),
-        Padding(
-          padding: const EdgeInsets.only(top: 16),
-          child: ElevatedButton(
-            onPressed: toggleDebug,
-            style: ButtonStyles.buttonDefault,
-            child: const Text("Toggle Debug View"),
+        if (!kReleaseMode)
+          Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: ElevatedButton(
+              onPressed: toggleDebug,
+              style: ButtonStyles.buttonDefault,
+              child: const Text("Toggle Debug View"),
+            ),
           ),
-        ),
       ],
     ));
   }
