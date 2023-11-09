@@ -3,16 +3,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:spira/model.dart';
 import 'package:spira/constants.dart';
+import 'package:spira/model/device.dart';
+import 'package:spira/model/lesson.dart';
 
 import 'package:spira/widgets/prompt.dart';
 import 'package:spira/widgets/score.dart';
 
 class GameView extends StatefulWidget {
   final int breathLevel;
+  final Lesson lesson;
 
-  const GameView({Key? key, required this.breathLevel}) : super(key: key);
+  const GameView({Key? key, required this.breathLevel, required this.lesson})
+      : super(key: key);
 
   @override
   State<GameView> createState() => _GameViewState();
@@ -21,7 +24,7 @@ class GameView extends StatefulWidget {
 class _GameViewState extends State<GameView> {
   late Timer _timer;
 
-  GameState state = GameState.ready;
+  LessonState state = LessonState.ready;
 
   int sequence = 0;
   List<Score> scoreList = [];
@@ -40,19 +43,19 @@ class _GameViewState extends State<GameView> {
 
   void resetScore() {
     setState(() {
-      scoreList = GameSequence.training.map((e) => Score.empty).toList();
+      scoreList = widget.lesson.sequence.map((e) => Score.empty).toList();
     });
   }
 
   void updateGameSequence() {
-    if ((sequence < GameSequence.training.length - 1) ||
-        (state != GameState.complete)) {
+    if ((sequence < widget.lesson.sequence.length - 1) ||
+        (state != LessonState.complete)) {
       setState(() {
         sequence++;
-        state = GameSequence.training[sequence];
+        state = widget.lesson.sequence[sequence];
       });
 
-      _timer = Timer(const Duration(seconds: GameSequence.maxSeconds), () {
+      _timer = Timer(Duration(seconds: widget.lesson.maxInterval), () {
         updateGameSequence();
         setScore(false);
       });
@@ -68,7 +71,7 @@ class _GameViewState extends State<GameView> {
   void restartPressed() {
     setState(() {
       sequence = 0;
-      state = GameSequence.training[0];
+      state = widget.lesson.sequence[0];
     });
     resetScore();
   }
@@ -86,13 +89,13 @@ class _GameViewState extends State<GameView> {
 
   String promptText() {
     switch (state) {
-      case GameState.ready:
+      case LessonState.ready:
         return "Get Ready";
-      case GameState.inhale:
+      case LessonState.inhale:
         return "Breath In";
-      case GameState.exhale:
+      case LessonState.exhale:
         return "Breath Out Slowly";
-      case GameState.complete:
+      case LessonState.complete:
         return "All Done!";
       default:
         return "";
@@ -101,7 +104,7 @@ class _GameViewState extends State<GameView> {
 
   Widget controls() {
     switch (state) {
-      case GameState.ready:
+      case LessonState.ready:
         return Row(
           children: [
             Expanded(
@@ -112,7 +115,7 @@ class _GameViewState extends State<GameView> {
             ),
           ],
         );
-      case GameState.inhale:
+      case LessonState.inhale:
         return Row(
           children: [
             Expanded(
@@ -123,7 +126,7 @@ class _GameViewState extends State<GameView> {
             )
           ],
         );
-      case GameState.exhale:
+      case LessonState.exhale:
         return Row(
           children: [
             Expanded(
@@ -134,7 +137,7 @@ class _GameViewState extends State<GameView> {
             )
           ],
         );
-      case GameState.complete:
+      case LessonState.complete:
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -175,21 +178,21 @@ class _GameViewState extends State<GameView> {
 
   @override
   Widget build(BuildContext context) {
-    if ((state == GameState.inhale) &&
+    if ((state == LessonState.inhale) &&
         widget.breathLevel < (Device.breathThreshold * -1)) {
       _timer.cancel();
       setScore(true);
       updateGameSequence();
     }
 
-    if ((state == GameState.exhale) &&
+    if ((state == LessonState.exhale) &&
         widget.breathLevel > Device.breathThreshold) {
       _timer.cancel();
       setScore(true);
       updateGameSequence();
     }
 
-    if (state == GameState.complete) {
+    if (state == LessonState.complete) {
       _timer.cancel();
     }
 

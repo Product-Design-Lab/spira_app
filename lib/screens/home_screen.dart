@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:spira/constants.dart';
+import 'package:spira/model/device.dart';
+import 'package:spira/model/lesson.dart';
 
 import 'package:spira/widgets/base.dart';
 import 'package:spira/widgets/list_item.dart';
 
-import 'package:spira/screens/device_screen.dart';
+import 'package:spira/screens/lesson_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final BluetoothDevice device;
@@ -26,11 +28,14 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.pushNamed(context, "/help");
   }
 
-  void connect() {
+  void startLesson(Lesson lesson) {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => DeviceScreen(device: widget.device)));
+            builder: (context) => LessonScreen(
+                  device: widget.device,
+                  lesson: lesson,
+                )));
   }
 
   @override
@@ -56,8 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         ListItem(
-          label: "Example Lesson",
-          onPressed: connect,
+          label: "Device Training",
+          onPressed: () => startLesson(Device.lessons[0]),
         ),
       ],
     ));

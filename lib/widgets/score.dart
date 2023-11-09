@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:spira/constants.dart';
-import 'package:spira/model.dart';
+import 'package:spira/model/lesson.dart';
 
 class ScoreView extends StatelessWidget {
   final List<Score> scoreList;

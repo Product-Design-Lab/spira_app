@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:spira/screens/help_screen.dart';
 
-import 'package:spira/screens/home_screen.dart';
 import 'package:spira/screens/connect_screen.dart';
 import 'package:spira/widgets/playground.dart';
 

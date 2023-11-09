@@ -5,21 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:spira/constants.dart';
 
-import 'package:spira/model.dart';
+import 'package:spira/model/device.dart';
+import 'package:spira/model/lesson.dart';
 
 import 'package:spira/widgets/base.dart';
 import 'package:spira/widgets/game.dart';
 
-class DeviceScreen extends StatefulWidget {
+class LessonScreen extends StatefulWidget {
   final BluetoothDevice device;
+  final Lesson lesson;
 
-  const DeviceScreen({Key? key, required this.device}) : super(key: key);
+  const LessonScreen({Key? key, required this.device, required this.lesson})
+      : super(key: key);
 
   @override
-  State<DeviceScreen> createState() => _DeviceScreenState();
+  State<LessonScreen> createState() => _LessonScreenState();
 }
 
-class _DeviceScreenState extends State<DeviceScreen> {
+class _LessonScreenState extends State<LessonScreen> {
   BluetoothConnectionState _connectionState =
       BluetoothConnectionState.disconnected;
 
@@ -161,7 +164,11 @@ class _DeviceScreenState extends State<DeviceScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Expanded(child: GameView(breathLevel: breath)),
+        Expanded(
+            child: GameView(
+          breathLevel: breath,
+          lesson: widget.lesson,
+        )),
         if (showDebugView)
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 64, 0, 64),

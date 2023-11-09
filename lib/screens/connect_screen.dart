@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-import 'package:spira/model.dart';
 import 'package:spira/constants.dart';
+import 'package:spira/model/device.dart';
 
 import 'package:spira/widgets/base.dart';
 

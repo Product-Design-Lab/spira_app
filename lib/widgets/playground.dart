@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spira/constants.dart';
 
-import 'package:spira/model.dart';
+import 'package:spira/model/lesson.dart';
 
 import 'package:spira/widgets/base.dart';
 import 'package:spira/widgets/prompt.dart';
@@ -41,7 +41,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
         ]),
         Center(
             child: PromptView(
-                state: toggled ? GameState.inhale : GameState.exhale)),
+                state: toggled ? LessonState.inhale : LessonState.exhale)),
         Text(
           "Prompt Text",
           style: TextStyles.subtitle.copyWith(color: AppColors.labelSecondary),

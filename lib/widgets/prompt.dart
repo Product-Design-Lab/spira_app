@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import 'package:spira/model.dart';
 import 'package:spira/constants.dart';
+import 'package:spira/model/device.dart';
+import 'package:spira/model/lesson.dart';
 
 class PromptView extends StatelessWidget {
-  final GameState state;
+  final LessonState state;
 
   const PromptView({super.key, required this.state});
 
@@ -41,10 +42,10 @@ class PromptView extends StatelessWidget {
     const double spread = 60;
 
     switch (state) {
-      case GameState.ready:
+      case LessonState.ready:
         return graphic("Ready?", AppColors.labelPrimary, AppColors.greyAccent,
             Colors.transparent, 0);
-      case GameState.inhale:
+      case LessonState.inhale:
         return LoopAnimationBuilder<double>(
           duration: Duration(seconds: Device.breathDuration),
           tween: Tween(begin: spread, end: 0),
@@ -56,7 +57,7 @@ class PromptView extends StatelessWidget {
               AppColors.orangeBackground,
               value),
         );
-      case GameState.exhale:
+      case LessonState.exhale:
         return LoopAnimationBuilder<double>(
           duration: Duration(seconds: Device.breathDuration),
           tween: Tween(begin: 0, end: spread),
@@ -68,7 +69,7 @@ class PromptView extends StatelessWidget {
               AppColors.yellowBackground,
               value),
         );
-      case GameState.complete:
+      case LessonState.complete:
         return graphic("All Done", AppColors.greenForeground,
             AppColors.greenAccent, Colors.transparent, 0);
       default:
