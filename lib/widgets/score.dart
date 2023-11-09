@@ -12,7 +12,7 @@ class ScoreView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 4),
       child: SizedBox(
-        width: 32,
+        width: 16,
         height: 8,
         child: Container(
           decoration: BoxDecoration(

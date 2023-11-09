@@ -4,6 +4,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:spira/constants.dart';
 import 'package:spira/model/device.dart';
 import 'package:spira/model/lesson.dart';
+import 'package:spira/screens/help_screen.dart';
 
 import 'package:spira/widgets/base.dart';
 import 'package:spira/widgets/list_item.dart';
@@ -25,7 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void helpPressed() {
-    Navigator.pushNamed(context, "/help");
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const HelpScreen()));
   }
 
   void startLesson(Lesson lesson) {
@@ -50,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("Sessions", style: TextStyles.title),
+              const Text("Lessons", style: TextStyles.title),
               IconButton(
                   onPressed: helpPressed,
                   icon: const Icon(
@@ -60,10 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        ListItem(
-          label: "Device Training",
-          onPressed: () => startLesson(Device.lessons[0]),
-        ),
+        Column(
+          children: Device.lessons
+              .map((lesson) => ListItem(
+                  title: lesson.title,
+                  description: lesson.description,
+                  onPressed: () => startLesson(lesson)))
+              .toList(),
+        )
       ],
     ));
   }

@@ -22,7 +22,7 @@ class GameView extends StatefulWidget {
 }
 
 class _GameViewState extends State<GameView> {
-  late Timer _timer;
+  Timer? _timer;
 
   LessonState state = LessonState.ready;
 
@@ -37,7 +37,7 @@ class _GameViewState extends State<GameView> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -90,7 +90,7 @@ class _GameViewState extends State<GameView> {
   String promptText() {
     switch (state) {
       case LessonState.ready:
-        return "Get Ready";
+        return widget.lesson.title;
       case LessonState.inhale:
         return "Breath In";
       case LessonState.exhale:
@@ -113,6 +113,15 @@ class _GameViewState extends State<GameView> {
                   style: ButtonStyles.buttonGreen,
                   child: const Text("Start")),
             ),
+            const SizedBox(
+              width: 16,
+            ),
+            Expanded(
+              child: ElevatedButton(
+                  onPressed: exit,
+                  style: ButtonStyles.buttonDefault,
+                  child: const Text("Cancel")),
+            )
           ],
         );
       case LessonState.inhale:
@@ -138,37 +147,23 @@ class _GameViewState extends State<GameView> {
           ],
         );
       case LessonState.complete:
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        return Row(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                      onPressed: exit,
-                      style: ButtonStyles.buttonGreen,
-                      child: const Text("Done")),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                      onPressed: restartPressed,
-                      style: ButtonStyles.buttonDefault,
-                      child: const Text("Restart")),
-                )
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16),
+            Expanded(
               child: ElevatedButton(
-                onPressed: openSurvey,
-                style: ButtonStyles.buttonDefault,
-                child: const Text("Rate My Lesson"),
-              ),
+                  onPressed: exit,
+                  style: ButtonStyles.buttonDefault,
+                  child: const Text("Done")),
             ),
+            const SizedBox(
+              width: 16,
+            ),
+            Expanded(
+              child: ElevatedButton(
+                  onPressed: openSurvey,
+                  style: ButtonStyles.buttonYellow,
+                  child: const Text("Rate Lesson")),
+            )
           ],
         );
       default:
@@ -180,20 +175,20 @@ class _GameViewState extends State<GameView> {
   Widget build(BuildContext context) {
     if ((state == LessonState.inhale) &&
         widget.breathLevel < (Device.breathThreshold * -1)) {
-      _timer.cancel();
+      _timer?.cancel();
       setScore(true);
       updateGameSequence();
     }
 
     if ((state == LessonState.exhale) &&
         widget.breathLevel > Device.breathThreshold) {
-      _timer.cancel();
+      _timer?.cancel();
       setScore(true);
       updateGameSequence();
     }
 
     if (state == LessonState.complete) {
-      _timer.cancel();
+      _timer?.cancel();
     }
 
     return Column(

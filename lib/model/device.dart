@@ -24,7 +24,7 @@ class Device {
   static List<Lesson> lessons = [
     Lesson(
         "Device Training",
-        "Learn to use the device with a quick breather",
+        "Learn to use the device",
         [
           LessonState.ready,
           LessonState.inhale,
@@ -34,7 +34,7 @@ class Device {
         5),
     Lesson(
         "Circular Breathing",
-        "5 cycles of inhales and exhales",
+        "5x inhales and exhales",
         [
           LessonState.ready,
           LessonState.inhale,

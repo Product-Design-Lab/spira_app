@@ -46,6 +46,12 @@ class TextStyles {
       fontWeight: FontWeight.w500,
       letterSpacing: -0.4,
       height: 1.29);
+
+  static const TextStyle footnote = TextStyle(
+      fontSize: 15,
+      fontWeight: FontWeight.w500,
+      letterSpacing: -0.4,
+      height: 1.29);
 }
 
 class ButtonStyles {
@@ -74,6 +80,13 @@ class ButtonStyles {
       ),
       backgroundColor:
           const MaterialStatePropertyAll<Color>(AppColors.redBackground));
+
+  static ButtonStyle buttonYellow = buttonDefault.copyWith(
+      foregroundColor: const MaterialStatePropertyAll<Color>(
+        AppColors.yellowForeground,
+      ),
+      backgroundColor:
+          const MaterialStatePropertyAll<Color>(AppColors.yellowBackground));
 }
 
 class Strings {

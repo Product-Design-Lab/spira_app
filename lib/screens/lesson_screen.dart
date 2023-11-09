@@ -26,12 +26,11 @@ class _LessonScreenState extends State<LessonScreen> {
   BluetoothConnectionState _connectionState =
       BluetoothConnectionState.disconnected;
 
-  late StreamSubscription<BluetoothConnectionState>
-      _connectionStateSubscription;
+  StreamSubscription<BluetoothConnectionState>? _connectionStateSubscription;
 
-  late StreamSubscription _batteryLevelSubscription;
-  late StreamSubscription _breathSubscription;
-  late StreamSubscription _tongueForceSubscription;
+  StreamSubscription? _batteryLevelSubscription;
+  StreamSubscription? _breathSubscription;
+  StreamSubscription? _tongueForceSubscription;
 
   int batteryLevel = 0;
   int breath = 0;
@@ -61,10 +60,10 @@ class _LessonScreenState extends State<LessonScreen> {
 
   @override
   void dispose() {
-    _connectionStateSubscription.cancel();
-    _breathSubscription.cancel();
-    _batteryLevelSubscription.cancel();
-    _tongueForceSubscription.cancel();
+    _connectionStateSubscription?.cancel();
+    _breathSubscription?.cancel();
+    _batteryLevelSubscription?.cancel();
+    _tongueForceSubscription?.cancel();
     super.dispose();
   }
 
