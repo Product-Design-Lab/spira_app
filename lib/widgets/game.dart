@@ -95,11 +95,11 @@ class _GameViewState extends State<GameView> {
       case LessonState.ready:
         return widget.lesson.title;
       case LessonState.inhale:
-        return "Breath In";
+        return "Breath in with puffed cheeks";
       case LessonState.exhale:
-        return "Breath Out Slowly";
+        return "Breath out slowly with puffed cheeks";
       case LessonState.complete:
-        return "All Done!";
+        return "You got ${Score.getTotal(scoreList)} of ${scoreList.length - 2}";
       default:
         return "";
     }
@@ -115,15 +115,6 @@ class _GameViewState extends State<GameView> {
                   onPressed: updateGameSequence,
                   style: ButtonStyles.buttonGreen,
                   child: const Text("Start")),
-            ),
-            const SizedBox(
-              width: 16,
-            ),
-            Expanded(
-              child: ElevatedButton(
-                  onPressed: exit,
-                  style: ButtonStyles.buttonDefault,
-                  child: const Text("Cancel")),
             )
           ],
         );
@@ -202,9 +193,10 @@ class _GameViewState extends State<GameView> {
         Center(
           child: PromptView(state: state),
         ),
-        Text(promptText(),
-            style:
-                TextStyles.subtitle.copyWith(color: AppColors.labelSecondary)),
+        Center(
+          child: Text(promptText(),
+              style: TextStyles.body.copyWith(color: AppColors.labelPrimary)),
+        ),
         controls(),
       ],
     );
