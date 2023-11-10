@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:spira/constants/colors.dart';
 import 'package:spira/constants/text_styles.dart';
+import 'package:spira/model/article.dart';
 
 import 'package:spira/widgets/list_item.dart';
 
@@ -35,36 +36,16 @@ class HelpScreen extends StatelessWidget {
                         style: TextStyles.title,
                       ),
                     ),
-                    ListItem(
-                        title: "Circular Breathing",
-                        description: "Learn to perform circular breathing",
-                        onPressed: () => {},
-                        foregroundColor: AppColors.greyForeground,
-                        backgroundColor: AppColors.greyBackground),
-                    ListItem(
-                        title: "Getting Started",
-                        description: "Learn to use the app and device",
-                        onPressed: () => {},
-                        foregroundColor: AppColors.greyForeground,
-                        backgroundColor: AppColors.greyBackground),
-                    ListItem(
-                        title: "Getting Started (No App)",
-                        description: "Learn to use your device",
-                        onPressed: () => {},
-                        foregroundColor: AppColors.greyForeground,
-                        backgroundColor: AppColors.greyBackground),
-                    ListItem(
-                        title: "Charging",
-                        description: "How to charge your device",
-                        onPressed: () => {},
-                        foregroundColor: AppColors.greyForeground,
-                        backgroundColor: AppColors.greyBackground),
-                    ListItem(
-                        title: "Changing Mouthpiece",
-                        description: "Learn to replace the mouthpiece",
-                        onPressed: () => {},
-                        foregroundColor: AppColors.greyForeground,
-                        backgroundColor: AppColors.greyBackground),
+                    Column(
+                      children: HelpArticles.articles
+                          .map((article) => ListItem(
+                              title: article.title,
+                              description: article.description,
+                              onPressed: () => {},
+                              foregroundColor: AppColors.greyForeground,
+                              backgroundColor: AppColors.greyBackground))
+                          .toList(),
+                    )
                   ],
                 ))));
   }
