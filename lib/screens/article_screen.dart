@@ -1,60 +1,41 @@
 import 'package:flutter/material.dart';
 
-import 'package:spira/constants/button_styles.dart';
 import 'package:spira/constants/text_styles.dart';
-import 'package:spira/constants/strings.dart';
+
+import 'package:spira/model/article.dart';
 
 import 'package:spira/widgets/base.dart';
 
-class ArticleScreen extends StatefulWidget {
-  const ArticleScreen({Key? key}) : super(key: key);
+class ArticleScreen extends StatelessWidget {
+  final HelpArticle article;
 
-  @override
-  State<ArticleScreen> createState() => _ArticleScreenState();
-}
-
-class _ArticleScreenState extends State<ArticleScreen> {
-  void backPressed() {
-    Navigator.pop(context);
-  }
+  const ArticleScreen({super.key, required this.article});
 
   @override
   Widget build(BuildContext context) {
     return Base(
+        showBackButton: true,
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ElevatedButton(
-                  onPressed: backPressed,
-                  style: ButtonStyles.buttonDefault.copyWith(
-                      padding: const MaterialStatePropertyAll<EdgeInsets>(
-                          EdgeInsets.fromLTRB(12, 0, 24, 0))),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Icon(Icons.chevron_left_rounded), Text("Home")],
-                  ))
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Row(
-            children: [
-              Text(
-                Strings.helpTitle,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Text(
+                article.title,
                 style: TextStyles.title,
-              )
-            ],
-          ),
-        ),
-        Text(Strings.helpBody, style: TextStyles.body),
-      ],
-    ));
+              ),
+            ),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: article.content
+                    .map((widget) => Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: widget,
+                        ))
+                    .toList())
+          ],
+        ));
   }
 }

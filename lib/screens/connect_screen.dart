@@ -50,7 +50,7 @@ class _ScannerScreen extends StatelessWidget {
         if (result.device.platformName == Device.name) {
           FlutterBluePlus.stopScan();
           result.device.connect();
-          Navigator.push(
+          Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) => HomeScreen(device: result.device)));

@@ -5,6 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:spira/screens/article_screen.dart';
 
 import 'package:spira/screens/connect_screen.dart';
+import 'package:spira/screens/help_screen.dart';
 import 'package:spira/widgets/playground.dart';
 
 void main() {
@@ -34,7 +35,7 @@ class MainApp extends StatelessWidget {
       initialRoute: "/connect",
       routes: {
         "/connect": (context) => const ConnectScreen(),
-        "/help": (context) => const ArticleScreen(),
+        "/help": (context) => const HelpScreen(),
         "/playground": (context) => const PlaygroundScreen(),
       },
     );
