@@ -4,11 +4,11 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:spira/constants.dart';
 import 'package:spira/model/device.dart';
 import 'package:spira/model/lesson.dart';
-import 'package:spira/screens/help_screen.dart';
 
 import 'package:spira/widgets/base.dart';
 import 'package:spira/widgets/list_item.dart';
 
+import 'package:spira/screens/help_screen.dart';
 import 'package:spira/screens/lesson_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -47,29 +47,29 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("Lessons", style: TextStyles.title),
-              IconButton(
-                  onPressed: helpPressed,
-                  icon: const Icon(
-                    Icons.help_outline_rounded,
-                    color: AppColors.labelPrimary,
-                  ))
-            ],
+        const Padding(
+          padding: EdgeInsets.only(bottom: 16),
+          child: Text("Lessons", style: TextStyles.title),
+        ),
+        Expanded(
+          child: Column(
+            children: Device.lessons
+                .map((lesson) => ListItem(
+                      title: lesson.title,
+                      description: lesson.description,
+                      onPressed: () => startLesson(lesson),
+                      foregroundColor: AppColors.yellowForeground,
+                      backgroundColor: AppColors.yellowBackground,
+                    ))
+                .toList(),
           ),
         ),
-        Column(
-          children: Device.lessons
-              .map((lesson) => ListItem(
-                  title: lesson.title,
-                  description: lesson.description,
-                  onPressed: () => startLesson(lesson)))
-              .toList(),
-        )
+        ListItem(
+            title: "Help Guide",
+            description: "Device and training guides",
+            onPressed: helpPressed,
+            foregroundColor: AppColors.greyForeground,
+            backgroundColor: AppColors.greyBackground)
       ],
     ));
   }

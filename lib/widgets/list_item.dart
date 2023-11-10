@@ -6,11 +6,17 @@ class ListItem extends StatelessWidget {
   final String description;
   final Function() onPressed;
 
-  const ListItem(
-      {super.key,
-      required this.title,
-      required this.description,
-      required this.onPressed});
+  final Color foregroundColor;
+  final Color backgroundColor;
+
+  const ListItem({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.onPressed,
+    required this.foregroundColor,
+    required this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,8 @@ class ListItem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8),
       child: ElevatedButton(
         onPressed: onPressed,
-        style: ButtonStyles.buttonYellow.copyWith(
+        style: ButtonStyles.buttonDefault.copyWith(
+            backgroundColor: MaterialStatePropertyAll<Color>(backgroundColor),
             fixedSize:
                 const MaterialStatePropertyAll<Size?>(Size.fromHeight(72)),
             shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
@@ -38,14 +45,13 @@ class ListItem extends StatelessWidget {
                 ),
                 Text(
                   description,
-                  style: TextStyles.footnote
-                      .copyWith(color: AppColors.yellowForeground),
+                  style: TextStyles.footnote.copyWith(color: foregroundColor),
                 ),
               ],
             ),
-            const Icon(
+            Icon(
               Icons.chevron_right_rounded,
-              color: AppColors.yellowForeground,
+              color: foregroundColor,
             )
           ],
         ),
