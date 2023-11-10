@@ -1,58 +1,69 @@
 import 'package:flutter/material.dart';
 
 import 'package:spira/constants.dart';
+import 'package:spira/widgets/list_item.dart';
 
-import 'package:spira/widgets/base.dart';
-
-class HelpScreen extends StatefulWidget {
-  const HelpScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HelpScreen> createState() => _HelpScreenState();
-}
-
-class _HelpScreenState extends State<HelpScreen> {
-  void backPressed() {
-    Navigator.pop(context);
-  }
+class HelpScreen extends StatelessWidget {
+  const HelpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Base(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ElevatedButton(
-                  onPressed: backPressed,
-                  style: ButtonStyles.buttonDefault.copyWith(
-                      padding: const MaterialStatePropertyAll<EdgeInsets>(
-                          EdgeInsets.fromLTRB(12, 0, 24, 0))),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Icon(Icons.chevron_left_rounded), Text("Home")],
-                  ))
-            ],
+    return Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back_ios_new_rounded),
+            color: AppColors.labelPrimary,
           ),
+          backgroundColor: AppColors.background,
+          shadowColor: Colors.transparent,
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Row(
-            children: [
-              Text(
-                Strings.helpTitle,
-                style: TextStyles.title,
-              )
-            ],
-          ),
-        ),
-        Text(Strings.helpBody, style: TextStyles.body),
-      ],
-    ));
+        body: SafeArea(
+            child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 16),
+                      child: Text(
+                        "Help Guide",
+                        style: TextStyles.title,
+                      ),
+                    ),
+                    ListItem(
+                        title: "Circular Breathing",
+                        description: "Learn to perform circular breathing",
+                        onPressed: () => {},
+                        foregroundColor: AppColors.greyForeground,
+                        backgroundColor: AppColors.greyBackground),
+                    ListItem(
+                        title: "Getting Started",
+                        description: "Learn to use the app and device",
+                        onPressed: () => {},
+                        foregroundColor: AppColors.greyForeground,
+                        backgroundColor: AppColors.greyBackground),
+                    ListItem(
+                        title: "Getting Started (No App)",
+                        description: "Learn to use your device",
+                        onPressed: () => {},
+                        foregroundColor: AppColors.greyForeground,
+                        backgroundColor: AppColors.greyBackground),
+                    ListItem(
+                        title: "Charging",
+                        description: "How to charge your device",
+                        onPressed: () => {},
+                        foregroundColor: AppColors.greyForeground,
+                        backgroundColor: AppColors.greyBackground),
+                    ListItem(
+                        title: "Changing Mouthpiece",
+                        description: "Learn to replace the mouthpiece",
+                        onPressed: () => {},
+                        foregroundColor: AppColors.greyForeground,
+                        backgroundColor: AppColors.greyBackground),
+                  ],
+                ))));
   }
 }
