@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:spira/constants.dart';
+import 'package:spira/constants/colors.dart';
+import 'package:spira/constants/text_styles.dart';
+
 import 'package:spira/widgets/list_item.dart';
 
 class HelpScreen extends StatelessWidget {

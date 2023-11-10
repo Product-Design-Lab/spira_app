@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:spira/constants.dart';
+
+import 'package:spira/constants/button_styles.dart';
+import 'package:spira/constants/text_styles.dart';
 
 class ListItem extends StatelessWidget {
   final String title;

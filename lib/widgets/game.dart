@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:spira/constants.dart';
+import 'package:spira/constants/button_styles.dart';
+import 'package:spira/constants/text_styles.dart';
+import 'package:spira/constants/colors.dart';
+
 import 'package:spira/model/device.dart';
 import 'package:spira/model/lesson.dart';
 

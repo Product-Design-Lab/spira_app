@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-import 'package:spira/constants.dart';
+import 'package:spira/constants/colors.dart';
+import 'package:spira/constants/text_styles.dart';
+
 import 'package:spira/model/device.dart';
-import 'package:spira/model/lesson.dart';
 import 'package:spira/screens/help_screen.dart';
 
 import 'package:spira/widgets/base.dart';
 import 'package:spira/widgets/list_item.dart';
 
+import 'package:spira/model/lesson.dart';
 import 'package:spira/screens/lesson_screen.dart';
 
 class HomeScreen extends StatefulWidget {
