@@ -45,15 +45,27 @@ class PromptView extends StatelessWidget {
 
     switch (state) {
       case LessonState.ready:
-        return graphic("Ready?", AppColors.labelPrimary, AppColors.greyAccent,
-            Colors.transparent, 0);
+        return graphic(state.title, AppColors.labelPrimary,
+            AppColors.greyAccent, Colors.transparent, 0);
       case LessonState.inhale:
         return LoopAnimationBuilder<double>(
           duration: Duration(seconds: Device.breathDuration),
           tween: Tween(begin: spread, end: 0),
           curve: Curves.easeIn,
           builder: (context, value, child) => graphic(
-              "Inhale",
+              state.title,
+              AppColors.orangeForeground,
+              AppColors.orangeAccent,
+              AppColors.orangeBackground,
+              value),
+        );
+      case LessonState.impress:
+        return LoopAnimationBuilder<double>(
+          duration: Duration(seconds: Device.breathDuration),
+          tween: Tween(begin: spread, end: 0),
+          curve: Curves.easeIn,
+          builder: (context, value, child) => graphic(
+              state.title,
               AppColors.orangeForeground,
               AppColors.orangeAccent,
               AppColors.orangeBackground,
@@ -65,7 +77,19 @@ class PromptView extends StatelessWidget {
           tween: Tween(begin: 0, end: spread),
           curve: Curves.easeOut,
           builder: (context, value, child) => graphic(
-              "Exhale",
+              state.title,
+              AppColors.yellowForeground,
+              AppColors.yellowAccent,
+              AppColors.yellowBackground,
+              value),
+        );
+      case LessonState.depress:
+        return LoopAnimationBuilder<double>(
+          duration: Duration(seconds: Device.breathDuration),
+          tween: Tween(begin: 0, end: spread),
+          curve: Curves.easeOut,
+          builder: (context, value, child) => graphic(
+              state.title,
               AppColors.yellowForeground,
               AppColors.yellowAccent,
               AppColors.yellowBackground,

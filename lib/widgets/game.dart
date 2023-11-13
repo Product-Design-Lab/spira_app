@@ -103,14 +103,10 @@ class _GameViewState extends State<GameView> {
     switch (state) {
       case LessonState.ready:
         return widget.lesson.title;
-      case LessonState.inhale:
-        return "Breath in with puffed cheeks";
-      case LessonState.exhale:
-        return "Breath out slowly with puffed cheeks";
       case LessonState.complete:
         return "You got ${Score.getTotal(scoreList)} of ${scoreList.length - 2}";
       default:
-        return "";
+        return state.prompt;
     }
   }
 
@@ -134,7 +130,7 @@ class _GameViewState extends State<GameView> {
               child: ElevatedButton(
                   onPressed: restartPressed,
                   style: ButtonStyles.buttonRed,
-                  child: const Text("Stop Training")),
+                  child: const Text("Stop")),
             )
           ],
         );
@@ -145,7 +141,7 @@ class _GameViewState extends State<GameView> {
               child: ElevatedButton(
                   onPressed: restartPressed,
                   style: ButtonStyles.buttonRed,
-                  child: const Text("Stop Training")),
+                  child: const Text("Stop")),
             )
           ],
         );
@@ -165,7 +161,7 @@ class _GameViewState extends State<GameView> {
               child: ElevatedButton(
                   onPressed: openSurvey,
                   style: ButtonStyles.buttonYellow,
-                  child: const Text("Rate Lesson")),
+                  child: const Text("Rate")),
             )
           ],
         );
