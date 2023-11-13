@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:spira/constants/colors.dart';
 import 'package:spira/constants/text_styles.dart';
 
 import 'package:spira/model/device.dart';
-import 'package:spira/screens/help_screen.dart';
 
 import 'package:spira/widgets/base.dart';
 import 'package:spira/widgets/list_item.dart';
@@ -27,9 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  void helpPressed() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const HelpScreen()));
+  void helpPressed() async {
+    Uri url = Uri.parse(Device.helpURL);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    }
   }
 
   void startLesson(Lesson lesson) {

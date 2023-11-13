@@ -20,6 +20,8 @@ class Device {
   static int breathDuration = 5;
 
   static const String surveyURL = "https://forms.office.com/r/jhXepe74BQ";
+  static const String helpURL =
+      "https://nbatham.notion.site/Aeolus-User-Guide-227b7704d23242899629c443a65621f0?pvs=4";
 
   static List<Lesson> lessons = [
     Lesson(
