@@ -33,7 +33,8 @@ class Device {
           LessonState.exhale,
           LessonState.complete
         ],
-        5),
+        5,
+        1),
     Lesson(
         "Circular Breathing",
         "5x inhales and exhales",
@@ -51,6 +52,7 @@ class Device {
           LessonState.exhale,
           LessonState.complete
         ],
-        5),
+        5,
+        1),
   ];
 }

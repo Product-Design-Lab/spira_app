@@ -3,8 +3,10 @@ class Lesson {
   final String description;
   final List<LessonState> sequence;
   final int maxInterval;
+  final int deviceMode;
 
-  Lesson(this.title, this.description, this.sequence, this.maxInterval);
+  Lesson(this.title, this.description, this.sequence, this.maxInterval,
+      this.deviceMode);
 }
 
 enum LessonState { ready, inhale, exhale, complete }

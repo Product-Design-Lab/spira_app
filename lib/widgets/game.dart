@@ -16,8 +16,13 @@ import 'package:spira/widgets/score.dart';
 class GameView extends StatefulWidget {
   final int breathLevel;
   final Lesson lesson;
+  final Function() onStart;
 
-  const GameView({Key? key, required this.breathLevel, required this.lesson})
+  const GameView(
+      {Key? key,
+      required this.breathLevel,
+      required this.lesson,
+      required this.onStart})
       : super(key: key);
 
   @override
@@ -71,6 +76,10 @@ class _GameViewState extends State<GameView> {
     });
   }
 
+  void startPressed() {
+    updateGameSequence();
+  }
+
   void restartPressed() {
     setState(() {
       sequence = 0;
@@ -112,7 +121,7 @@ class _GameViewState extends State<GameView> {
           children: [
             Expanded(
               child: ElevatedButton(
-                  onPressed: updateGameSequence,
+                  onPressed: startPressed,
                   style: ButtonStyles.buttonGreen,
                   child: const Text("Start")),
             )

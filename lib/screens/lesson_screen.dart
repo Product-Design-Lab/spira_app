@@ -124,7 +124,11 @@ class _LessonScreenState extends State<LessonScreen> {
         for (BluetoothCharacteristic c in characteristics) {
           // resetCharacteristic
           if (c.uuid.toString() == Device.resetCharacteristic.toLowerCase()) {
-            c.write([0]);
+            if (kReleaseMode) {
+              c.write([widget.lesson.deviceMode]);
+            } else {
+              c.write([1]);
+            }
           }
         }
       }
@@ -169,6 +173,7 @@ class _LessonScreenState extends State<LessonScreen> {
                 child: GameView(
               breathLevel: breath,
               lesson: widget.lesson,
+              onStart: changeMode,
             )),
             if (showDebugView)
               Padding(
