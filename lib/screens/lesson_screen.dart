@@ -160,37 +160,41 @@ class _LessonScreenState extends State<LessonScreen> {
   @override
   Widget build(BuildContext context) {
     return Base(
+        showBackButton: true,
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-            child: GameView(
-          breathLevel: breath,
-          lesson: widget.lesson,
-        )),
-        if (showDebugView)
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 64, 0, 64),
-            child: Column(children: [
-              Center(child: Text("Breath Level Characterstic: $breath")),
-              Center(child: Text("Tongue Force Characterstic: $tongueForce")),
-              Center(child: Text("Battery Level Characterstic: $batteryLevel")),
-              MaterialButton(onPressed: reset, child: const Text("Reset")),
-              MaterialButton(
-                  onPressed: changeMode, child: const Text("Change Mode")),
-            ]),
-          ),
-        if (!kReleaseMode)
-          Padding(
-            padding: const EdgeInsets.only(top: 16),
-            child: ElevatedButton(
-              onPressed: toggleDebug,
-              style: ButtonStyles.buttonDefault,
-              child: const Text("Toggle Debug View"),
-            ),
-          ),
-      ],
-    ));
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+                child: GameView(
+              breathLevel: breath,
+              lesson: widget.lesson,
+            )),
+            if (showDebugView)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 64, 0, 64),
+                child: Column(children: [
+                  Center(child: Text("Breath Level Characterstic: $breath")),
+                  Center(
+                      child: Text("Tongue Force Characterstic: $tongueForce")),
+                  Center(
+                      child:
+                          Text("Battery Level Characterstic: $batteryLevel")),
+                  MaterialButton(onPressed: reset, child: const Text("Reset")),
+                  MaterialButton(
+                      onPressed: changeMode, child: const Text("Change Mode")),
+                ]),
+              ),
+            if (!kReleaseMode)
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: ElevatedButton(
+                  onPressed: toggleDebug,
+                  style: ButtonStyles.buttonDefault,
+                  child: const Text("Toggle Debug View"),
+                ),
+              ),
+          ],
+        ));
   }
 }
