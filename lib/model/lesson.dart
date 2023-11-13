@@ -4,10 +4,18 @@ class Lesson {
   final List<LessonState> sequence;
   final int maxInterval;
   final int deviceMode;
+  final LessonType type;
 
-  Lesson(this.title, this.description, this.sequence, this.maxInterval,
-      this.deviceMode);
+  Lesson(
+      {required this.title,
+      required this.description,
+      required this.sequence,
+      required this.maxInterval,
+      required this.deviceMode,
+      required this.type});
 }
+
+enum LessonType { breath, force }
 
 enum LessonState {
   ready,

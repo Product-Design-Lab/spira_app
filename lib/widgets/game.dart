@@ -15,12 +15,14 @@ import 'package:spira/widgets/score.dart';
 
 class GameView extends StatefulWidget {
   final int breathLevel;
+  final int tongueForce;
   final Lesson lesson;
   final Function() onStart;
 
   const GameView(
       {Key? key,
       required this.breathLevel,
+      required this.tongueForce,
       required this.lesson,
       required this.onStart})
       : super(key: key);
@@ -64,8 +66,8 @@ class _GameViewState extends State<GameView> {
       });
 
       _timer = Timer(Duration(seconds: widget.lesson.maxInterval), () {
-        updateGameSequence();
         setScore(false);
+        updateGameSequence();
       });
     }
   }
@@ -123,28 +125,6 @@ class _GameViewState extends State<GameView> {
             )
           ],
         );
-      case LessonState.inhale:
-        return Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                  onPressed: restartPressed,
-                  style: ButtonStyles.buttonRed,
-                  child: const Text("Stop")),
-            )
-          ],
-        );
-      case LessonState.exhale:
-        return Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                  onPressed: restartPressed,
-                  style: ButtonStyles.buttonRed,
-                  child: const Text("Stop")),
-            )
-          ],
-        );
       case LessonState.complete:
         return Row(
           children: [
@@ -166,24 +146,51 @@ class _GameViewState extends State<GameView> {
           ],
         );
       default:
-        return Container();
+        return Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                  onPressed: restartPressed,
+                  style: ButtonStyles.buttonRed,
+                  child: const Text("Stop")),
+            )
+          ],
+        );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if ((state == LessonState.inhale) &&
-        widget.breathLevel < (Device.breathThreshold * -1)) {
-      _timer?.cancel();
-      setScore(true);
-      updateGameSequence();
+    if (widget.lesson.type == LessonType.breath) {
+      if ((state == LessonState.inhale) &&
+          widget.breathLevel < (Device.breathThreshold * -1)) {
+        _timer?.cancel();
+        setScore(true);
+        updateGameSequence();
+      }
+
+      if ((state == LessonState.exhale) &&
+          widget.breathLevel > Device.breathThreshold) {
+        _timer?.cancel();
+        setScore(true);
+        updateGameSequence();
+      }
     }
 
-    if ((state == LessonState.exhale) &&
-        widget.breathLevel > Device.breathThreshold) {
-      _timer?.cancel();
-      setScore(true);
-      updateGameSequence();
+    if (widget.lesson.type == LessonType.force) {
+      if ((state == LessonState.inhale) &&
+          widget.tongueForce < (Device.forceThreshold * -1)) {
+        _timer?.cancel();
+        setScore(true);
+        updateGameSequence();
+      }
+
+      if ((state == LessonState.exhale) &&
+          widget.tongueForce > Device.forceThreshold) {
+        _timer?.cancel();
+        setScore(true);
+        updateGameSequence();
+      }
     }
 
     if (state == LessonState.complete) {

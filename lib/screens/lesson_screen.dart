@@ -172,6 +172,7 @@ class _LessonScreenState extends State<LessonScreen> {
             Expanded(
                 child: GameView(
               breathLevel: breath,
+              tongueForce: tongueForce,
               lesson: widget.lesson,
               onStart: changeMode,
             )),

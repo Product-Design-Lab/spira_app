@@ -18,6 +18,7 @@ class Device {
 
   static int breathThreshold = 80;
   static int breathDuration = 5;
+  static int forceThreshold = 80;
 
   static const String surveyURL = "https://forms.office.com/r/jhXepe74BQ";
   static const String helpURL =
@@ -25,20 +26,21 @@ class Device {
 
   static List<Lesson> lessons = [
     Lesson(
-        "Device Training",
-        "Learn to use the device",
-        [
+        title: "Device Training",
+        description: "Learn to use the device",
+        sequence: [
           LessonState.ready,
           LessonState.inhale,
           LessonState.exhale,
           LessonState.complete
         ],
-        5,
-        0),
+        maxInterval: 5,
+        deviceMode: 0,
+        type: LessonType.breath),
     Lesson(
-        "Circular Breathing",
-        "5x inhales and exhales",
-        [
+        title: "Circular Breathing",
+        description: "5x inhales and exhales",
+        sequence: [
           LessonState.ready,
           LessonState.inhale,
           LessonState.exhale,
@@ -52,12 +54,13 @@ class Device {
           LessonState.exhale,
           LessonState.complete
         ],
-        5,
-        1),
+        maxInterval: 5,
+        deviceMode: 1,
+        type: LessonType.breath),
     Lesson(
-        "Circular Breathing (Dynamic)",
-        "5x inhales and exhales with force",
-        [
+        title: "Circular Breathing (Dynamic)",
+        description: "5x inhales and exhales with extra pressure",
+        sequence: [
           LessonState.ready,
           LessonState.inhale,
           LessonState.exhale,
@@ -71,7 +74,20 @@ class Device {
           LessonState.exhale,
           LessonState.complete
         ],
-        5,
-        0),
+        maxInterval: 5,
+        deviceMode: 1,
+        type: LessonType.breath),
+    Lesson(
+        title: "Tongue Pressure",
+        description: "Build tongue muscles",
+        sequence: [
+          LessonState.ready,
+          LessonState.impress,
+          LessonState.depress,
+          LessonState.complete
+        ],
+        maxInterval: 5,
+        deviceMode: 0,
+        type: LessonType.force),
   ];
 }
