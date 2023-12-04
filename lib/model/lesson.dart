@@ -15,7 +15,7 @@ class Lesson {
       required this.type});
 }
 
-enum LessonType { breath, force }
+enum LessonType { breath, force, timed }
 
 enum LessonState {
   ready,
@@ -23,6 +23,7 @@ enum LessonState {
   exhale,
   impress,
   depress,
+  maintain,
   complete;
 
   String get title {
@@ -37,6 +38,8 @@ enum LessonState {
         return "Push";
       case LessonState.depress:
         return "Pull";
+      case LessonState.maintain:
+        return "Circulate";
       default:
         return "";
     }
@@ -54,6 +57,8 @@ enum LessonState {
         return "Apply pressure with the tongue";
       case LessonState.depress:
         return "Release your tongue";
+      case LessonState.maintain:
+        return "Maintain a steady breath flow";
       default:
         return "";
     }

@@ -11,6 +11,7 @@ import 'package:spira/model/lesson.dart';
 
 import 'package:spira/widgets/base.dart';
 import 'package:spira/widgets/game.dart';
+import 'package:spira/widgets/timed_game.dart';
 
 class LessonScreen extends StatefulWidget {
   final BluetoothDevice device;
@@ -169,13 +170,18 @@ class _LessonScreenState extends State<LessonScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
-                child: GameView(
-              breathLevel: breath,
-              tongueForce: tongueForce,
-              lesson: widget.lesson,
-              onStart: changeMode,
-            )),
+            if (widget.lesson.type != LessonType.timed)
+              Expanded(
+                  child: GameView(
+                breathLevel: breath,
+                tongueForce: tongueForce,
+                lesson: widget.lesson,
+                onStart: changeMode,
+              )),
+            if (widget.lesson.type == LessonType.timed)
+              Expanded(
+                  child: TimedGameView(
+                      breathLevel: breath, lesson: widget.lesson)),
             if (showDebugView)
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 64, 0, 64),

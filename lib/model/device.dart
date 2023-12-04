@@ -16,6 +16,8 @@ class Device {
   static const String modeCharacteristic =
       "20B10024-E8F2-537E-4F6C-D104768A1214";
 
+  static int breathMaxMagnitude = 100;
+
   static int breathThreshold = 80;
   static int breathDuration = 5;
   static int forceThreshold = 80;
@@ -89,5 +91,16 @@ class Device {
         maxInterval: 5,
         deviceMode: 0,
         type: LessonType.force),
+    Lesson(
+        title: "Circular Breathing (Timed)",
+        description: "Constant airflow",
+        sequence: [
+          LessonState.ready,
+          LessonState.maintain,
+          LessonState.complete
+        ],
+        maxInterval: 10,
+        deviceMode: 0,
+        type: LessonType.timed),
   ];
 }
