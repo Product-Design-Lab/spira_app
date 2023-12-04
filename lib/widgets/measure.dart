@@ -40,6 +40,16 @@ class MeasureView extends StatelessWidget {
     );
   }
 
+  String measuredText() {
+    if (level > Device.breathThreshold) {
+      return "Less Flow";
+    } else if (level < (Device.breathThreshold * -1)) {
+      return "More Flow";
+    } else {
+      return state.title;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     const double maxSpread = 60;
@@ -64,7 +74,7 @@ class MeasureView extends StatelessWidget {
         return graphic(state.title, AppColors.labelPrimary,
             AppColors.greyAccent, Colors.transparent, 0);
       case LessonState.maintain:
-        return graphic(state.title, measuredForeground, measuredAccent,
+        return graphic(measuredText(), measuredForeground, measuredAccent,
             measuredBackground, measuredSpread);
       case LessonState.complete:
         return graphic("All Done", AppColors.greenForeground,
