@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:spira/constants/text_styles.dart';
 import 'package:spira/constants/colors.dart';
+
 import 'package:spira/model/device.dart';
+import 'package:spira/model/lesson.dart';
 
 class MeasureView extends StatelessWidget {
+  final LessonState state;
   final int level;
 
-  const MeasureView({super.key, required this.level});
+  const MeasureView({super.key, required this.state, required this.level});
 
   Widget graphic(String label, Color foregroundColor, Color backgroundColor,
       Color shadowColor, double spread) {
@@ -56,7 +59,18 @@ class MeasureView extends StatelessWidget {
         ? AppColors.greenBackground
         : AppColors.orangeBackground;
 
-    return graphic("label", measuredForeground, measuredAccent,
-        measuredBackground, measuredSpread);
+    switch (state) {
+      case LessonState.ready:
+        return graphic(state.title, AppColors.labelPrimary,
+            AppColors.greyAccent, Colors.transparent, 0);
+      case LessonState.maintain:
+        return graphic(state.title, measuredForeground, measuredAccent,
+            measuredBackground, measuredSpread);
+      case LessonState.complete:
+        return graphic("All Done", AppColors.greenForeground,
+            AppColors.greenAccent, Colors.transparent, 0);
+      default:
+        return const Center(child: Text("Error"));
+    }
   }
 }

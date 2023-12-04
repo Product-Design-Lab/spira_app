@@ -39,7 +39,7 @@ enum LessonState {
       case LessonState.depress:
         return "Pull";
       case LessonState.maintain:
-        return "Circulate";
+        return "Keep Steady";
       default:
         return "";
     }
