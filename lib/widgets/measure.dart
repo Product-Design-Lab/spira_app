@@ -58,15 +58,15 @@ class MeasureView extends StatelessWidget {
         maxSpread;
 
     var measuredForeground = (level.abs() <= Device.breathThreshold)
-        ? AppColors.greenForeground
+        ? AppColors.yellowForeground
         : AppColors.orangeForeground;
 
     var measuredAccent = (level.abs() <= Device.breathThreshold)
-        ? AppColors.greenAccent
+        ? AppColors.yellowAccent
         : AppColors.orangeAccent;
 
     var measuredBackground = (level.abs() <= Device.breathThreshold)
-        ? AppColors.greenBackground
+        ? AppColors.yellowBackground
         : AppColors.orangeBackground;
 
     switch (state) {

@@ -40,47 +40,7 @@ class Device {
         deviceMode: 0,
         type: LessonType.breath),
     Lesson(
-        title: "Circular Breathing",
-        description: "5x inhales and exhales",
-        sequence: [
-          LessonState.ready,
-          LessonState.inhale,
-          LessonState.exhale,
-          LessonState.inhale,
-          LessonState.exhale,
-          LessonState.inhale,
-          LessonState.exhale,
-          LessonState.inhale,
-          LessonState.exhale,
-          LessonState.inhale,
-          LessonState.exhale,
-          LessonState.complete
-        ],
-        maxInterval: 5,
-        deviceMode: 1,
-        type: LessonType.breath),
-    Lesson(
-        title: "Circular Breathing (Dynamic)",
-        description: "5x inhales and exhales with extra pressure",
-        sequence: [
-          LessonState.ready,
-          LessonState.inhale,
-          LessonState.exhale,
-          LessonState.inhale,
-          LessonState.exhale,
-          LessonState.inhale,
-          LessonState.exhale,
-          LessonState.inhale,
-          LessonState.exhale,
-          LessonState.inhale,
-          LessonState.exhale,
-          LessonState.complete
-        ],
-        maxInterval: 5,
-        deviceMode: 1,
-        type: LessonType.breath),
-    Lesson(
-        title: "Tongue Pressure",
+        title: "Tongue Pressure Training",
         description: "Build tongue muscles",
         sequence: [
           LessonState.ready,
@@ -92,14 +52,36 @@ class Device {
         deviceMode: 0,
         type: LessonType.force),
     Lesson(
-        title: "Circular Breathing (Timed)",
-        description: "Constant airflow",
+        title: "Circular Breathing (Short)",
+        description: "Steady breath for 10 seconds",
         sequence: [
           LessonState.ready,
           LessonState.maintain,
           LessonState.complete
         ],
         maxInterval: 10,
+        deviceMode: 0,
+        type: LessonType.timed),
+    Lesson(
+        title: "Circular Breathing (Medium)",
+        description: "Steady breath for 20 seconds",
+        sequence: [
+          LessonState.ready,
+          LessonState.maintain,
+          LessonState.complete
+        ],
+        maxInterval: 20,
+        deviceMode: 0,
+        type: LessonType.timed),
+    Lesson(
+        title: "Circular Breathing (Long)",
+        description: "Steady breath for 30 seconds",
+        sequence: [
+          LessonState.ready,
+          LessonState.maintain,
+          LessonState.complete
+        ],
+        maxInterval: 30,
         deviceMode: 0,
         type: LessonType.timed),
   ];
