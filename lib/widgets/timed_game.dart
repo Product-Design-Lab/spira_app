@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:spira/widgets/countdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:spira/constants/button_styles.dart';
@@ -153,7 +154,7 @@ class _TimedGameViewState extends State<TimedGameView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Center(child: Text('$elapsedTime')),
+        CountdownView(current: elapsedTime, max: widget.lesson.maxInterval),
         Center(child: MeasureView(state: state, level: widget.breathLevel)),
         Center(
           child: Text(promptText(),
