@@ -16,9 +16,9 @@ class Device {
   static const String modeCharacteristic =
       "20B10024-E8F2-537E-4F6C-D104768A1214";
 
-  static int breathMaxMagnitude = 100;
+  static int breathMaxMagnitude = 50;
 
-  static int breathThreshold = 80;
+  static int breathThreshold = 10;
   static int breathDuration = 5;
   static int forceThreshold = 80;
 
@@ -53,28 +53,6 @@ class Device {
         type: LessonType.force),
     Lesson(
         title: "Circular Breathing (Short)",
-        description: "Steady breath for 10 seconds",
-        sequence: [
-          LessonState.ready,
-          LessonState.maintain,
-          LessonState.complete
-        ],
-        maxInterval: 10,
-        deviceMode: 0,
-        type: LessonType.timed),
-    Lesson(
-        title: "Circular Breathing (Medium)",
-        description: "Steady breath for 20 seconds",
-        sequence: [
-          LessonState.ready,
-          LessonState.maintain,
-          LessonState.complete
-        ],
-        maxInterval: 20,
-        deviceMode: 0,
-        type: LessonType.timed),
-    Lesson(
-        title: "Circular Breathing (Long)",
         description: "Steady breath for 30 seconds",
         sequence: [
           LessonState.ready,
@@ -82,6 +60,28 @@ class Device {
           LessonState.complete
         ],
         maxInterval: 30,
+        deviceMode: 0,
+        type: LessonType.timed),
+    Lesson(
+        title: "Circular Breathing (Medium)",
+        description: "Steady breath for 2 minutes",
+        sequence: [
+          LessonState.ready,
+          LessonState.maintain,
+          LessonState.complete
+        ],
+        maxInterval: 120,
+        deviceMode: 0,
+        type: LessonType.timed),
+    Lesson(
+        title: "Circular Breathing (Long)",
+        description: "Steady breath for 5 minutes",
+        sequence: [
+          LessonState.ready,
+          LessonState.maintain,
+          LessonState.complete
+        ],
+        maxInterval: 300,
         deviceMode: 0,
         type: LessonType.timed),
   ];
